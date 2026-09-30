@@ -1,4 +1,4 @@
-{
+export const mockData = {
   "bloodGroups": [
     "A+",
     "A-",
@@ -1324,158 +1324,7 @@
       ]
     }
   ],
-  "requests": [
-    {
-      "id": "REQ-2026-1220",
-      "hospitalId": "H1",
-      "hospitalName": "Lilavati Hospital & Research Centre",
-      "patientCaseId": "PT-TEST-2026",
-      "bloodGroup": "O-",
-      "unitsRequired": 3,
-      "unitsFulfilled": 0,
-      "urgency": "Critical",
-      "priority": "Critical",
-      "priorityScore": 98,
-      "priorityReason": "Ultra-Critical: Response window is only 35 min with high unit demand (3 units). Rapid relay protocol activated.",
-      "requiredByMinutes": 35,
-      "createdAt": "2026-09-30T05:48:38.287Z",
-      "requiredBy": "2026-09-30T06:23:38.287Z",
-      "location": "Bandra West, Mumbai",
-      "latitude": 19.0514,
-      "longitude": 72.8295,
-      "status": "DONORS_IDENTIFIED",
-      "notes": "Automated test emergency trauma transfusion.",
-      "isSuspicious": false,
-      "similarityScore": 0,
-      "fraudReason": null,
-      "duplicateOfRequestId": null,
-      "compatibleDonorsFound": 6,
-      "nearbyBloodBanks": 8,
-      "availableUnitsNearby": 41,
-      "nearestDistanceKm": 9.2,
-      "matchedDonorsList": [
-        {
-          "donorId": "D131",
-          "name": "Payal Parekh",
-          "bloodGroup": "O-",
-          "phone": "+91 982002147",
-          "distance": 9.2,
-          "availability": "Available Now",
-          "eligibility": "Eligible",
-          "matchScore": 99,
-          "reasons": [
-            "Exact blood match (O-)",
-            "Medium range (9.2 km)",
-            "Donor active & clinically eligible to donate",
-            "Critical priority emergency boost"
-          ],
-          "status": "Identified",
-          "lastDonationDate": "2026-05-19",
-          "latitude": 19.103,
-          "longitude": 72.8976
-        },
-        {
-          "donorId": "D147",
-          "name": "Radhika Shenoy",
-          "bloodGroup": "O-",
-          "phone": "+91 982002739",
-          "distance": 5.8,
-          "availability": "Available Now",
-          "eligibility": "Eligible",
-          "matchScore": 99,
-          "reasons": [
-            "Exact blood match (O-)",
-            "Close proximity (5.8 km)",
-            "Donor active & clinically eligible to donate",
-            "Critical priority emergency boost"
-          ],
-          "status": "Identified",
-          "lastDonationDate": "2026-05-27",
-          "latitude": 18.9999,
-          "longitude": 72.8231
-        },
-        {
-          "donorId": "D123",
-          "name": "Kavita Bhosle",
-          "bloodGroup": "O-",
-          "phone": "+91 982001851",
-          "distance": 5.3,
-          "availability": "Available Now",
-          "eligibility": "Cooldown Period",
-          "matchScore": 98,
-          "reasons": [
-            "Exact blood match (O-)",
-            "Close proximity (5.3 km)",
-            "Donor online (pending screening)",
-            "Critical priority emergency boost"
-          ],
-          "status": "Identified",
-          "lastDonationDate": "2026-07-14",
-          "latitude": 19.0111,
-          "longitude": 72.8023
-        },
-        {
-          "donorId": "D139",
-          "name": "Natasha Dsouza",
-          "bloodGroup": "O-",
-          "phone": "+91 982002443",
-          "distance": 4.8,
-          "availability": "Available Now",
-          "eligibility": "Cooldown Period",
-          "matchScore": 98,
-          "reasons": [
-            "Exact blood match (O-)",
-            "Close proximity (4.8 km)",
-            "Donor online (pending screening)",
-            "Critical priority emergency boost"
-          ],
-          "status": "Identified",
-          "lastDonationDate": "2026-07-22",
-          "latitude": 19.0672,
-          "longitude": 72.8721
-        },
-        {
-          "donorId": "D107",
-          "name": "Rahul Varma",
-          "bloodGroup": "O-",
-          "phone": "+91 982001259",
-          "distance": 8.3,
-          "availability": "Available Now",
-          "eligibility": "Cooldown Period",
-          "matchScore": 92,
-          "reasons": [
-            "Exact blood match (O-)",
-            "Medium range (8.3 km)",
-            "Donor online (pending screening)",
-            "Critical priority emergency boost"
-          ],
-          "status": "Identified",
-          "lastDonationDate": "2026-07-06",
-          "latitude": 19.0975,
-          "longitude": 72.8914
-        },
-        {
-          "donorId": "D115",
-          "name": "Farhan Shaikh",
-          "bloodGroup": "O-",
-          "phone": "+91 982001555",
-          "distance": 2.9,
-          "availability": "Busy",
-          "eligibility": "Eligible",
-          "matchScore": 89,
-          "reasons": [
-            "Exact blood match (O-)",
-            "Ultra-close proximity (2.9 km)",
-            "Donor currently offline/busy",
-            "Critical priority emergency boost"
-          ],
-          "status": "Identified",
-          "lastDonationDate": "2026-05-11",
-          "latitude": 19.0554,
-          "longitude": 72.857
-        }
-      ]
-    },
+  "initialRequests": [
     {
       "id": "REQ-2026-1048",
       "hospitalId": "H1",
@@ -1492,7 +1341,7 @@
       "location": "Bandra West, Mumbai",
       "latitude": 19.0514,
       "longitude": 72.8295,
-      "status": "DONORS_IDENTIFIED",
+      "status": "MATCHING",
       "notes": "Urgent aortic rupture trauma surgery. Universal negative donor needed immediately.",
       "compatibleDonorsFound": 8,
       "nearbyBloodBanks": 3,
@@ -1675,68 +1524,6 @@
       "nearbyBloodBanks": 3,
       "availableUnitsNearby": 35,
       "nearestDistanceKm": 1.2
-    }
-  ],
-  "notifications": [
-    {
-      "id": "NOTIF-1790747318317",
-      "type": "info",
-      "title": "Step 5: Smart Matching Identifies Targets",
-      "message": "Step 5: 8 compatible donors and 3 blood banks matched!",
-      "time": "Just now",
-      "read": false,
-      "requestId": "REQ-2026-1048",
-      "createdAt": "2026-09-30T05:48:38.317Z"
-    },
-    {
-      "id": "NOTIF-1790747318289",
-      "type": "critical",
-      "title": "🚨 O- Blood Request: Lilavati Hospital & Research Centre",
-      "message": "3 units required at Bandra West. AI priority score: 98%.",
-      "time": "Just now",
-      "read": false,
-      "requestId": "REQ-2026-1220",
-      "createdAt": "2026-09-30T05:48:38.289Z"
-    },
-    {
-      "id": "NOTIF-1",
-      "type": "critical",
-      "title": "🚨 Critical Emergency Alert",
-      "message": "O- blood required immediately at Lilavati Hospital (REQ-2026-1048). 42 mins remaining.",
-      "time": "Just now",
-      "read": false,
-      "requestId": "REQ-2026-1048",
-      "createdAt": "2026-09-30T05:48:15.256Z"
-    },
-    {
-      "id": "NOTIF-2",
-      "type": "match",
-      "title": "🩸 Donor Match Identified",
-      "message": "Compatible donors found within 2.1 km in Bandra West for Lilavati Hospital.",
-      "time": "2 mins ago",
-      "read": false,
-      "requestId": "REQ-2026-1048",
-      "createdAt": "2026-09-30T05:46:15.258Z"
-    },
-    {
-      "id": "NOTIF-3",
-      "type": "bank",
-      "title": "🏥 Blood Bank Alert",
-      "message": "O- inventory reached critical threshold (5 units left) across Central Mumbai.",
-      "time": "14 mins ago",
-      "read": true,
-      "requestId": null,
-      "createdAt": "2026-09-30T05:34:15.258Z"
-    },
-    {
-      "id": "NOTIF-4",
-      "type": "system",
-      "title": "⚠️ Suspicious Duplicate Flagged",
-      "message": "REQ-2026-1042 flagged with 87% similarity to REQ-2026-1040.",
-      "time": "25 mins ago",
-      "read": true,
-      "requestId": "REQ-2026-1042",
-      "createdAt": "2026-09-30T05:23:15.258Z"
     }
   ],
   "aiInsights": {
@@ -2923,14 +2710,6 @@
       "responseTimeMin": 7,
       "urgency": "High"
     }
-  ],
-  "auditLog": [
-    {
-      "id": "AUDIT-1790747318291",
-      "actor": "Hospital:Lilavati Hospital & Research Centre",
-      "action": "CREATE_EMERGENCY_REQUEST",
-      "details": "Created REQ-2026-1220 for 3 units of O- (Critical)",
-      "timestamp": "2026-09-30T05:48:38.291Z"
-    }
   ]
-}
+};
+export default mockData;
