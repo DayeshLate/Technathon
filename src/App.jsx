@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import L from 'leaflet';
 import { mockData } from './data/mockData';
+import api from './services/api';
+import BackendApiView from './components/BackendApiView';
 import {
   Activity,
   AlertTriangle,
@@ -66,6 +68,69 @@ export default function App() {
   const [donors, setDonors] = useState(mockData.donors);
   const [toast, setToast] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBackendLive, setIsBackendLive] = useState(false);
+
+  // Sync with Backend API & listen to SSE real-time events
+  useEffect(() => {
+    api.checkHealth()
+      .then((res) => {
+        if (res.status === 'online') setIsBackendLive(true);
+      })
+      .catch(() => setIsBackendLive(false));
+
+    api.getRequests()
+      .then((res) => {
+        if (res.success && res.data) setRequests(res.data);
+      })
+      .catch(() => {});
+
+    api.getBloodBanks()
+      .then((res) => {
+        if (res.success && res.data) setBloodBanks(res.data);
+      })
+      .catch(() => {});
+
+    api.getDonors()
+      .then((res) => {
+        if (res.success && res.data) setDonors(res.data);
+      })
+      .catch(() => {});
+
+    const unsubscribe = api.subscribeToEvents((event) => {
+      if (!event || !event.type) return;
+      if (event.type === 'CONNECTED') {
+        setIsBackendLive(true);
+      } else if (event.type === 'EMERGENCY_REQUEST_CREATED') {
+        setRequests((prev) => [event.data, ...prev.filter((r) => r.id !== event.data.id)]);
+      } else if (event.type === 'REQUEST_STATUS_UPDATED') {
+        setRequests((prev) =>
+          prev.map((r) =>
+            r.id === event.data.requestId
+              ? {
+                  ...r,
+                  status: event.data.status,
+                  unitsFulfilled: event.data.unitsFulfilled !== undefined ? event.data.unitsFulfilled : r.unitsFulfilled
+                }
+              : r
+          )
+        );
+      } else if (event.type === 'INVENTORY_UPDATED') {
+        setBloodBanks((prev) =>
+          prev.map((b) =>
+            b.id === event.data.bankId
+              ? {
+                  ...b,
+                  inventory: event.data.updatedInventory || b.inventory,
+                  reserved: event.data.updatedReserved || b.reserved
+                }
+              : b
+          )
+        );
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // New Request Form State
   const [newHospId, setNewHospId] = useState('H1');
@@ -98,9 +163,30 @@ export default function App() {
     isCritical: inventoryAggregates[bg] < 25
   }));
 
-  // Handle Create Request
-  const handleCreateRequest = (e) => {
+  // Handle Create Request with Backend API Integration
+  const handleCreateRequest = async (e) => {
     e.preventDefault();
+    try {
+      const res = await api.createEmergencyRequest({
+        hospitalId: newHospId,
+        bloodGroup: newBloodGroup,
+        unitsRequired: Number(newUnits),
+        urgency: newUrgency,
+        requiredByMinutes: Number(newMins)
+      });
+      if (res && res.success && res.data) {
+        setRequests((prev) => [res.data, ...prev]);
+        setSelectedReqId(res.data.id);
+        setIsModalOpen(false);
+        setActiveTab('tracker');
+        showToast(`Emergency request ${res.data.id} created via Backend API!`, 'success');
+        return;
+      }
+    } catch (err) {
+      console.warn('Backend API request failed, using local fallback:', err.message);
+    }
+
+    // Local Fallback
     const hosp = mockData.hospitals.find((h) => h.id === newHospId) || mockData.hospitals[0];
     const newId = 'REQ-2026-' + Math.floor(1050 + Math.random() * 800);
     const newReq = {
@@ -142,7 +228,13 @@ export default function App() {
     showToast('Emergency request ' + newId + ' created! AI matching launched.', 'success');
   };
 
-  const handleNotifyDonor = (donorId) => {
+  const handleNotifyDonor = async (donorId) => {
+    try {
+      await api.notifyDonor(selectedReqId, donorId);
+    } catch (e) {
+      console.warn('Backend notifyDonor error:', e);
+    }
+
     setRequests((prev) =>
       prev.map((r) =>
         r.id === selectedReqId && r.matchedDonorsList
@@ -158,7 +250,13 @@ export default function App() {
     showToast('Simulated SMS alert dispatched to Donor #' + donorId, 'success');
   };
 
-  const handleSimulateFulfill = () => {
+  const handleSimulateFulfill = async () => {
+    try {
+      await api.updateRequestStatus(selectedReqId, 'FULFILLED');
+    } catch (e) {
+      console.warn('Backend updateRequestStatus error:', e);
+    }
+
     setRequests((prev) =>
       prev.map((r) =>
         r.id === selectedReqId

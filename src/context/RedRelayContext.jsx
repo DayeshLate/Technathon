@@ -1,5 +1,6 @@
-﻿import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { mockData } from '../data/mockData';
+import api from '../services/api';
 
 const RedRelayContext = createContext();
 
@@ -8,26 +9,17 @@ export function RedRelayProvider({ children }) {
   const [role, setRole] = useState('hospital');
   
   // Requests list
-  const [requests, setRequests] = useState(() => {
-    return mockData.initialRequests;
-  });
-
+  const [requests, setRequests] = useState(() => mockData.initialRequests);
   const [selectedRequestId, setSelectedRequestId] = useState('REQ-2026-1048');
 
   // Blood bank inventories
-  const [bloodBanks, setBloodBanks] = useState(() => {
-    return mockData.bloodBanks;
-  });
+  const [bloodBanks, setBloodBanks] = useState(() => mockData.bloodBanks);
 
   // Donors
-  const [donors, setDonors] = useState(() => {
-    return mockData.donors;
-  });
+  const [donors, setDonors] = useState(() => mockData.donors);
 
   // NGOs
-  const [ngos, setNgos] = useState(() => {
-    return mockData.ngos;
-  });
+  const [ngos, setNgos] = useState(() => mockData.ngos);
 
   // Notifications
   const [notifications, setNotifications] = useState([
@@ -69,15 +61,135 @@ export function RedRelayProvider({ children }) {
     }
   ]);
 
+  // Backend connection status
+  const [isBackendConnected, setIsBackendConnected] = useState(false);
+
   // Toast message state for interactive feedback
   const [toast, setToast] = useState(null);
 
-  const showToast = (message, type = 'info') => {
+  const showToast = useCallback((message, type = 'info') => {
     setToast({ id: Date.now(), message, type });
     setTimeout(() => {
       setToast(null);
     }, 4000);
-  };
+  }, []);
+
+  // Fetch initial data from backend API
+  const syncWithBackend = useCallback(async () => {
+    try {
+      const [reqRes, banksRes, donorsRes, ngosRes, notifsRes] = await Promise.allSettled([
+        api.getRequests(),
+        api.getBloodBanks(),
+        api.getDonors(),
+        api.getNgos(),
+        api.getNotifications()
+      ]);
+
+      if (reqRes.status === 'fulfilled' && reqRes.value.success) {
+        setRequests(reqRes.value.data);
+        setIsBackendConnected(true);
+      }
+      if (banksRes.status === 'fulfilled' && banksRes.value.success) {
+        setBloodBanks(banksRes.value.data);
+      }
+      if (donorsRes.status === 'fulfilled' && donorsRes.value.success) {
+        setDonors(donorsRes.value.data);
+      }
+      if (ngosRes.status === 'fulfilled' && ngosRes.value.success) {
+        setNgos(ngosRes.value.data);
+      }
+      if (notifsRes.status === 'fulfilled' && notifsRes.value.success) {
+        setNotifications(notifsRes.value.data);
+      }
+    } catch (err) {
+      console.warn('Backend sync failed, continuing with local store:', err.message);
+    }
+  }, []);
+
+  useEffect(() => {
+    syncWithBackend();
+
+    // Listen to real-time Server-Sent Events (SSE) from backend
+    const unsubscribe = api.subscribeToEvents((event) => {
+      if (!event || !event.type) return;
+
+      switch (event.type) {
+        case 'CONNECTED':
+          setIsBackendConnected(true);
+          break;
+
+        case 'EMERGENCY_REQUEST_CREATED':
+          setRequests((prev) => {
+            const exists = prev.some((r) => r.id === event.data.id);
+            return exists ? prev : [event.data, ...prev];
+          });
+          break;
+
+        case 'REQUEST_STATUS_UPDATED':
+          setRequests((prev) =>
+            prev.map((r) => {
+              if (r.id === event.data.requestId) {
+                return {
+                  ...r,
+                  status: event.data.status,
+                  unitsFulfilled: event.data.unitsFulfilled !== undefined ? event.data.unitsFulfilled : r.unitsFulfilled,
+                  matchedDonorsList: event.data.matchedDonorsList || r.matchedDonorsList
+                };
+              }
+              return r;
+            })
+          );
+          break;
+
+        case 'INVENTORY_UPDATED':
+          setBloodBanks((prev) =>
+            prev.map((b) =>
+              b.id === event.data.bankId
+                ? {
+                    ...b,
+                    inventory: event.data.updatedInventory || b.inventory,
+                    reserved: event.data.updatedReserved || b.reserved
+                  }
+                : b
+            )
+          );
+          break;
+
+        case 'DONOR_RESPONSE':
+          setRequests((prev) =>
+            prev.map((r) => {
+              if (r.id === event.data.requestId) {
+                return {
+                  ...r,
+                  status: event.data.newStatus || r.status,
+                  unitsFulfilled: event.data.unitsFulfilled !== undefined ? event.data.unitsFulfilled : r.unitsFulfilled,
+                  matchedDonorsList: r.matchedDonorsList?.map((d) =>
+                    d.donorId === event.data.donorId ? { ...d, status: event.data.action === 'ACCEPTED' ? 'Accepted' : 'Declined' } : d
+                  )
+                };
+              }
+              return r;
+            })
+          );
+          break;
+
+        case 'NEW_NOTIFICATION':
+          setNotifications((prev) => [event.data, ...prev]);
+          break;
+
+        case 'DEMO_RESET':
+          syncWithBackend();
+          break;
+
+        default:
+          break;
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [syncWithBackend]);
 
   // Helper: Aggregate inventory across all banks
   const getInventoryAggregates = () => {
@@ -89,7 +201,7 @@ export function RedRelayProvider({ children }) {
       mockData.bloodGroups.forEach((bg) => {
         summary[bg].available += bank.inventory[bg] || 0;
         summary[bg].reserved += bank.reserved[bg] || 0;
-        summary[bg].threshold += Math.round(bank.threshold / 8);
+        summary[bg].threshold += Math.round((bank.threshold || 20) / 8);
       });
     });
     return summary;
@@ -108,21 +220,17 @@ export function RedRelayProvider({ children }) {
 
     // Score factors
     let score = 50;
-    // Exact blood group bonus
     if (donor.bloodGroup === reqGroup) score += 25;
     else score += 12;
 
-    // Distance factor (max 20)
     if (distanceKm < 3) score += 20;
     else if (distanceKm < 6) score += 14;
     else if (distanceKm < 10) score += 8;
     else score += 3;
 
-    // Availability & eligibility
     if (donor.available && donor.eligibilityStatus === 'Eligible') score += 15;
     else if (donor.available) score += 5;
 
-    // Urgency multiplier
     if (reqUrgency === 'Critical') score = Math.min(99, score + 4);
 
     return {
@@ -133,11 +241,28 @@ export function RedRelayProvider({ children }) {
   };
 
   // Create Emergency Request
-  const createEmergencyRequest = (formData) => {
+  const createEmergencyRequest = async (formData) => {
     const randomSuffix = Math.floor(1050 + Math.random() * 800);
-    const newId = REQ-2026-;
+    const newId = `REQ-2026-${randomSuffix}`;
 
-    // Priority computation
+    // Try backend API first
+    try {
+      const res = await api.createEmergencyRequest({
+        ...formData,
+        unitsRequired: Number(formData.unitsRequired) || 2,
+        requiredByMinutes: Number(formData.requiredByMinutes) || 60
+      });
+      if (res.success && res.data) {
+        setRequests((prev) => [res.data, ...prev]);
+        setSelectedRequestId(res.data.id);
+        showToast(`Emergency request ${res.data.id} created successfully via Backend API!`, 'success');
+        return res.data;
+      }
+    } catch (err) {
+      console.warn('Backend create request failed, falling back to local simulation:', err.message);
+    }
+
+    // Local fallback computation
     let computedPriority = 'Normal';
     let priorityScore = 65;
     let priorityReason = 'Standard clinical priority.';
@@ -155,14 +280,10 @@ export function RedRelayProvider({ children }) {
       priorityReason = 'Elevated priority based on unit demand and response window.';
     }
 
-    // Check duplicate simulation
-    const isPotentialDuplicate = formData.patientCaseId && formData.patientCaseId.toLowerCase().includes('duplicate');
+    const isPotentialDuplicate = Boolean(formData.patientCaseId && formData.patientCaseId.toLowerCase().includes('duplicate'));
     const similarityScore = isPotentialDuplicate ? 87 : 0;
-
-    // Find hospital details
     const hosp = mockData.hospitals.find((h) => h.id === formData.hospitalId) || mockData.hospitals[0];
 
-    // Find compatible donors
     const matchedDonors = donors
       .map((d) => {
         const matchRes = calculateDonorMatch(d, formData.bloodGroup, formData.urgency, hosp.lat, hosp.lng);
@@ -185,7 +306,7 @@ export function RedRelayProvider({ children }) {
       id: newId,
       hospitalId: hosp.id,
       hospitalName: hosp.name,
-      patientCaseId: formData.patientCaseId || PT-,
+      patientCaseId: formData.patientCaseId || `PT-${Math.floor(10000 + Math.random() * 90000)}`,
       bloodGroup: formData.bloodGroup,
       unitsRequired: units,
       unitsFulfilled: 0,
@@ -214,24 +335,29 @@ export function RedRelayProvider({ children }) {
     setRequests((prev) => [newRequest, ...prev]);
     setSelectedRequestId(newId);
 
-    // Add alert notification
     const alertNotif = {
       id: 'NOTIF-' + Date.now(),
       type: computedPriority === 'Critical' ? 'critical' : 'match',
-      title: 🚨  Blood Request: ,
-      message: ${units} units required at . Priority score %.,
+      title: `🚨 ${formData.bloodGroup} Blood Request: ${hosp.name}`,
+      message: `${units} units required at ${hosp.area}. Priority score ${priorityScore}%.`,
       time: 'Just now',
       read: false,
       requestId: newId
     };
     setNotifications((prev) => [alertNotif, ...prev]);
-    showToast(Emergency request  created successfully! Matching engine triggered., 'success');
+    showToast(`Emergency request ${newId} created successfully! Matching engine triggered.`, 'success');
 
     return newRequest;
   };
 
   // Update request status
-  const updateRequestStatus = (id, newStatus, fulfillmentCount = null) => {
+  const updateRequestStatus = async (id, newStatus, fulfillmentCount = null) => {
+    try {
+      await api.updateRequestStatus(id, newStatus, fulfillmentCount);
+    } catch (e) {
+      console.warn('Backend updateRequestStatus error:', e);
+    }
+
     setRequests((prev) =>
       prev.map((req) => {
         if (req.id === id) {
@@ -247,7 +373,13 @@ export function RedRelayProvider({ children }) {
   };
 
   // Update blood bank inventory
-  const updateInventoryUnit = (bankId, bloodGroup, unitsDiff, isReserved = false) => {
+  const updateInventoryUnit = async (bankId, bloodGroup, unitsDiff, isReserved = false) => {
+    try {
+      await api.updateInventory(bankId, bloodGroup, unitsDiff, isReserved);
+    } catch (e) {
+      console.warn('Backend updateInventory error:', e);
+    }
+
     setBloodBanks((prev) =>
       prev.map((bank) => {
         if (bank.id === bankId) {
@@ -268,11 +400,17 @@ export function RedRelayProvider({ children }) {
         return bank;
       })
     );
-    showToast(Blood inventory updated for , 'info');
+    showToast(`Blood inventory updated for ${bankId}`, 'info');
   };
 
   // Notify donor simulation
-  const notifyDonor = (donorId, reqId) => {
+  const notifyDonor = async (donorId, reqId) => {
+    try {
+      await api.notifyDonor(reqId, donorId);
+    } catch (e) {
+      console.warn('Backend notifyDonor error:', e);
+    }
+
     setRequests((prev) =>
       prev.map((req) => {
         if (req.id === reqId && req.matchedDonorsList) {
@@ -286,12 +424,18 @@ export function RedRelayProvider({ children }) {
         return req;
       })
     );
-    showToast(Simulated SMS & Push Alert dispatched to Donor #, 'success');
+    showToast(`Simulated SMS & Push Alert dispatched to Donor #${donorId}`, 'success');
   };
 
   // Respond as donor
-  const respondAsDonor = (donorId, reqId, action) => {
+  const respondAsDonor = async (donorId, reqId, action) => {
     const isAccepted = action === 'ACCEPT';
+    try {
+      await api.respondAsDonor(donorId, reqId, action);
+    } catch (e) {
+      console.warn('Backend respondAsDonor error:', e);
+    }
+
     setRequests((prev) =>
       prev.map((req) => {
         if (req.id === reqId && req.matchedDonorsList) {
@@ -306,17 +450,27 @@ export function RedRelayProvider({ children }) {
         return req;
       })
     );
-    showToast(isAccepted ? Request Accepted! You are coordinated with hospital transport. : Request declined., isAccepted ? 'success' : 'info');
+    showToast(isAccepted ? `Request Accepted! You are coordinated with hospital transport.` : `Request declined.`, isAccepted ? 'success' : 'info');
   };
 
   // Mark notification read
-  const markNotificationRead = (id) => {
+  const markNotificationRead = async (id) => {
+    try {
+      await api.markNotificationRead(id);
+    } catch (e) {
+      console.warn('Backend markNotificationRead error:', e);
+    }
     setNotifications((prev) =>
       prev.map((n) => (n.id === id ? { ...n, read: true } : n))
     );
   };
 
-  const markAllNotificationsRead = () => {
+  const markAllNotificationsRead = async () => {
+    try {
+      await api.markAllNotificationsRead();
+    } catch (e) {
+      console.warn('Backend markAllNotificationsRead error:', e);
+    }
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
     showToast('All notifications marked as read', 'info');
   };
@@ -342,7 +496,7 @@ export function RedRelayProvider({ children }) {
   const [demoStepIndex, setDemoStepIndex] = useState(0);
   const [isDemoRunning, setIsDemoRunning] = useState(false);
 
-  const executeDemoStep = (stepNumber) => {
+  const executeDemoStep = async (stepNumber) => {
     const stepTarget = Math.max(1, Math.min(12, stepNumber));
     setDemoStepIndex(stepTarget - 1);
     const info = demoSteps[stepTarget - 1];
@@ -350,6 +504,13 @@ export function RedRelayProvider({ children }) {
 
     const targetReqId = 'REQ-2026-1048';
     setSelectedRequestId(targetReqId);
+
+    // Call backend demo execution endpoint
+    try {
+      await api.executeDemoStep(stepTarget);
+    } catch (e) {
+      console.warn('Backend executeDemoStep error:', e);
+    }
 
     if (stepTarget === 1) {
       setRole('hospital');
@@ -406,10 +567,15 @@ export function RedRelayProvider({ children }) {
     }
   };
 
-  const resetDemo = () => {
+  const resetDemo = async () => {
     setIsDemoRunning(false);
     setDemoStepIndex(0);
     setRole('hospital');
+    try {
+      await api.resetDemo();
+    } catch (e) {
+      console.warn('Backend resetDemo error:', e);
+    }
     setRequests(mockData.initialRequests);
     setBloodBanks(mockData.bloodBanks);
     setSelectedRequestId('REQ-2026-1048');
@@ -429,6 +595,8 @@ export function RedRelayProvider({ children }) {
     notifications,
     toast,
     showToast,
+    isBackendConnected,
+    syncWithBackend,
     getInventoryAggregates,
     createEmergencyRequest,
     updateRequestStatus,
