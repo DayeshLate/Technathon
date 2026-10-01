@@ -25,8 +25,11 @@ async function request(endpoint, options = {}) {
 }
 
 export const api = {
-  // --- Health ---
+  // --- Health & Database ---
   checkHealth: () => request('/health'),
+  getDatabaseStatus: () => request('/database/status'),
+  getDatabaseTables: () => request('/database/tables'),
+  seedDatabase: () => request('/database/seed', { method: 'POST' }),
 
   // --- Hospitals ---
   getHospitals: () => request('/hospitals'),

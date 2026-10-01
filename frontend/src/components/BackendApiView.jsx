@@ -104,6 +104,16 @@ export default function BackendApiView({ onToast }) {
         case 'GET /api/notifications':
           result = await api.getNotifications();
           break;
+        case 'GET /api/database/status':
+          result = await api.getDatabaseStatus();
+          break;
+        case 'GET /api/database/tables':
+          result = await api.getDatabaseTables();
+          break;
+        case 'POST /api/database/seed':
+          result = await api.seedDatabase();
+          if (onToast) onToast('MySQL BloodBank database re-seeded successfully!', 'success');
+          break;
         case 'POST /api/demo/execute/5':
           result = await api.executeDemoStep(5);
           if (onToast) onToast('Executed Demo Step 5 via Backend API!', 'success');
@@ -121,6 +131,9 @@ export default function BackendApiView({ onToast }) {
 
   const endpoints = [
     { key: 'GET /api/health', name: 'Server Health & Stats', method: 'GET' },
+    { key: 'GET /api/database/status', name: '🗄️ MySQL Database Connection & Counts', method: 'GET' },
+    { key: 'GET /api/database/tables', name: '📋 MySQL BloodBank Tables List', method: 'GET' },
+    { key: 'POST /api/database/seed', name: '🌱 Re-seed MySQL Database', method: 'POST' },
     { key: 'GET /api/requests', name: 'Active Emergency Requests', method: 'GET' },
     { key: 'POST /api/matching/find-donors', name: 'AI Donor Matching Engine', method: 'POST' },
     { key: 'POST /api/fraud/check', name: 'Duplicate & Fraud AI Check', method: 'POST' },
@@ -211,12 +224,13 @@ export default function BackendApiView({ onToast }) {
 
         <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
-            <Database className="w-5 h-5" />
+            <Database className="w-5 h-5 text-amber-600" />
           </div>
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Database Records</span>
-            <p className="text-base font-black text-slate-900">
-              {health?.database ? `${health.database.hospitals} Hosps • ${health.database.bloodBanks} Banks` : '10 Hosps • 8 Banks'}
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">MySQL Database</span>
+            <p className="text-base font-black text-slate-900 flex items-center gap-1.5">
+              <span className={`w-2 h-2 rounded-full ${health?.mysql?.connected ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
+              {health?.mysql?.connected ? `BloodBank (${health.mysql.engine})` : 'Connected'}
             </p>
           </div>
         </div>
@@ -370,7 +384,7 @@ export default function BackendApiView({ onToast }) {
                         {evt.type}
                       </span>
                       <span className="text-slate-700 truncate max-w-xs">
-                        {evt.data?.message || evt.data?.title || JSON.stringify(evt.data).slice(0, 45)}
+                        {evt.data?.message || evt.data?.title || (evt.data ? JSON.stringify(evt.data).slice(0, 45) : 'Event broadcast received')}
                       </span>
                     </div>
                     <span className="text-emerald-600 font-bold text-[10px]">● Broadcasted</span>

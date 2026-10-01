@@ -1,6 +1,4 @@
-﻿import React, { useState } from 'react';
-import { useRedRelay } from '../context/RedRelayContext';
-import { mockData } from '../data/mockData';
+import React, { useState } from 'react';
 import {
   Users,
   Megaphone,
@@ -11,11 +9,26 @@ import {
   Send,
   Plus,
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  Calendar
 } from 'lucide-react';
+import api from '../services/api';
 
-export default function NgoDashboard({ setCurrentView }) {
-  const { ngos, showToast } = useRedRelay();
+export default function NgoDashboard({
+  ngos = [],
+  onNavigateTab,
+  onToast
+}) {
+  const [selectedNgoId, setSelectedNgoId] = useState('NGO-1');
+  const [mobilizedCount, setMobilizedCount] = useState({});
+
+  const currentNgo = ngos.find((n) => n.id === selectedNgoId) || ngos[0] || {
+    id: 'NGO-1',
+    name: 'Think Foundation Mumbai',
+    area: 'Bandra / Dadar',
+    contact: '+91 22 2444 8899',
+    description: 'Autonomous Community Blood Mobilization Network'
+  };
 
   const [campaigns, setCampaigns] = useState([
     {
@@ -54,133 +67,122 @@ export default function NgoDashboard({ setCurrentView }) {
     setCampaigns((prev) =>
       prev.map((c) => (c.id === campId ? { ...c, current: Math.min(c.required, c.current + 2) } : c))
     );
-    showToast(Emergency broadcast sent to local WhatsApp & SMS donor rings! 2 more donors mobilized., 'success');
+    setMobilizedCount((prev) => ({ ...prev, [campId]: (prev[campId] || 0) + 2 }));
+    if (onToast) onToast('Emergency WhatsApp & SMS blast dispatched! +2 volunteers mobilized.', 'success');
   };
 
   return (
-    <div className=space-y-6 pb-16>
+    <div className="space-y-6">
       
-      {/* Header */}
-      <div className=bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white p-6 sm:p-8 rounded-3xl shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6>
-        <div className=space-y-2>
-          <div className=flex items-center gap-2>
-            <span className=px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-wider>
-              Community Mobilization Headquarters
+      {/* NGO Banner Header */}
+      <div className="bg-gradient-to-r from-amber-700 via-orange-800 to-slate-950 text-white p-6 sm:p-8 rounded-3xl shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative overflow-hidden">
+        <div className="space-y-2 relative z-10 max-w-xl">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-black uppercase tracking-wider">
+              Community Volunteer Network
+            </span>
+            <span className="px-2.5 py-0.5 bg-amber-300 text-amber-950 rounded-full text-[10px] font-bold">
+              Non-Profit Partner
             </span>
           </div>
-          <h1 className=text-2xl sm:text-3xl font-extrabold font-display>
-            NGO & Community Rapid Relay Network
+
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            {currentNgo.name}
           </h1>
-          <p className=text-xs sm:text-sm text-amber-100>
-            Empowering grassroots organizations to rapidly mobilize neighborhood donors during hospital red-alerts.
+
+          <p className="text-xs sm:text-sm text-amber-100 flex flex-wrap items-center gap-2.5 font-medium">
+            <span className="flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-amber-300" /> {currentNgo.area}, Mumbai
+            </span>
+            <span>•</span>
+            <span>Contact: {currentNgo.contact}</span>
+            <span>•</span>
+            <span className="text-emerald-300 font-bold">Active Volunteer Cell</span>
           </p>
         </div>
 
         <button
           onClick={() => {
-            showToast('New regional emergency campaign created across South Mumbai.', 'success');
+            if (onToast) onToast('Dispatched citywide blood drive announcement!', 'success');
           }}
-          className=px-5 py-3 bg-white text-orange-950 font-bold text-xs rounded-xl shadow-md hover:bg-amber-50 transition-all self-start sm:self-auto flex items-center gap-1.5
+          className="px-5 py-3 bg-white text-slate-900 hover:bg-amber-50 rounded-2xl font-bold text-xs shadow-md transition-all self-start sm:self-auto flex items-center gap-2"
         >
-          <Plus className=w-4 h-4 />
-          <span>Launch Emergency Campaign</span>
+          <Megaphone className="w-4 h-4 text-amber-600" />
+          <span>Launch Community Drive</span>
         </button>
       </div>
 
-      {/* 4 Metric Cards */}
-      <div className=grid grid-cols-2 sm:grid-cols-4 gap-4>
-        <div className=bg-white p-5 rounded-2xl border border-slate-200 shadow-xs>
-          <span className=text-[11px] font-semibold uppercase tracking-wider text-slate-500>Active Emergencies</span>
-          <p className=text-3xl font-black text-red-600 font-display mt-2>12</p>
-          <p className=text-[11px] text-slate-500 mt-1>Requiring donor mobilization</p>
+      {/* 4 NGO KPIs */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Active Volunteers</span>
+          <p className="text-3xl font-black text-slate-900 mt-2">184</p>
+          <span className="text-[11px] text-emerald-600 font-semibold mt-1 inline-block">Registered in Mumbai</span>
         </div>
 
-        <div className=bg-white p-5 rounded-2xl border border-slate-200 shadow-xs>
-          <span className=text-[11px] font-semibold uppercase tracking-wider text-slate-500>Donors Mobilized</span>
-          <p className=text-3xl font-black text-slate-900 font-display mt-2>1,420</p>
-          <p className=text-[11px] text-emerald-600 font-semibold mt-1>This month across Mumbai</p>
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Drives Conducted</span>
+          <p className="text-3xl font-black text-amber-600 mt-2">24</p>
+          <span className="text-[11px] text-slate-500 font-semibold mt-1 inline-block">This quarter</span>
         </div>
 
-        <div className=bg-white p-5 rounded-2xl border border-slate-200 shadow-xs>
-          <span className=text-[11px] font-semibold uppercase tracking-wider text-slate-500>Live Campaigns</span>
-          <p className=text-3xl font-black text-amber-600 font-display mt-2>5</p>
-          <p className=text-[11px] text-slate-500 mt-1>Coordinated drives</p>
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Pints Mobilized</span>
+          <p className="text-3xl font-black text-red-600 mt-2">642</p>
+          <span className="text-[11px] text-red-600 font-semibold mt-1 inline-block">Direct to Blood Banks</span>
         </div>
 
-        <div className=bg-white p-5 rounded-2xl border border-slate-200 shadow-xs>
-          <span className=text-[11px] font-semibold uppercase tracking-wider text-slate-500>Regions Covered</span>
-          <p className=text-3xl font-black text-slate-900 font-display mt-2>8</p>
-          <p className=text-[11px] text-slate-500 mt-1>Greater Mumbai zones</p>
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Scheduled Camps</span>
+          <p className="text-3xl font-black text-purple-600 mt-2">3</p>
+          <span className="text-[11px] text-purple-700 font-semibold mt-1 inline-block">Upcoming this month</span>
         </div>
       </div>
 
-      {/* Active Emergency Campaigns */}
-      <div className=space-y-4>
-        <div className=flex items-center justify-between>
-          <h3 className=text-base font-bold text-slate-900>
-            Active Community Donation Drives
-          </h3>
-          <span className=text-xs text-slate-500>Directly synchronized with hospital ICU alerts</span>
-        </div>
+      {/* Active Campaigns */}
+      <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
+        <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <Calendar className="w-4 h-4 text-amber-600" />
+          Active NGO Volunteer Mobilization Drives
+        </h3>
 
-        <div className=grid grid-cols-1 md:grid-cols-3 gap-5>
-          {campaigns.map((camp) => {
-            const percent = Math.round((camp.current / camp.required) * 100);
-            return (
-              <div
-                key={camp.id}
-                className=bg-white rounded-3xl p-6 border border-slate-200 shadow-xs hover:border-amber-300 hover:shadow-md transition-all flex flex-col justify-between
-              >
-                <div>
-                  <div className=flex items-start justify-between gap-2 mb-3>
-                    <span className=px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-100 text-red-700>
-                      {camp.urgency} DRIVE
-                    </span>
-                    <span className=px-2 py-0.5 rounded font-black text-xs bg-slate-900 text-white>
-                      {camp.bloodGroup}
-                    </span>
-                  </div>
-
-                  <h4 className=font-extrabold text-slate-900 text-base mb-1>
-                    {camp.title}
-                  </h4>
-                  <p className=text-xs text-slate-500 flex items-center gap-1 mb-3>
-                    <MapPin className=w-3.5 h-3.5 text-slate-400 />
-                    <span>{camp.location}</span>
-                  </p>
-
-                  <div className=bg-slate-50 p-3 rounded-2xl border border-slate-100 space-y-2 text-xs>
-                    <div className=flex justify-between font-semibold>
-                      <span className=text-slate-600>Donors Pledged:</span>
-                      <span className=text-slate-900 font-bold>
-                        {camp.current} / {camp.required} donors
-                      </span>
-                    </div>
-                    <div className=w-full h-2.5 rounded-full bg-slate-200 overflow-hidden>
-                      <div
-                        className=h-full rounded-full bg-gradient-to-r from-amber-500 to-red-600
-                        style={{ width: ${percent}% }}
-                      />
-                    </div>
-                    <div className=flex justify-between text-[11px] text-slate-400>
-                      <span>Progress</span>
-                      <span className=font-bold text-slate-700>{percent}%</span>
-                    </div>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {campaigns.map((camp) => (
+            <div key={camp.id} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <div className="flex justify-between items-start mb-2">
+                  <span className="px-2 py-0.5 rounded font-mono font-bold text-[10px] bg-slate-200 text-slate-700">
+                    {camp.id}
+                  </span>
+                  <span className="px-2 py-0.5 rounded font-bold text-[10px] bg-red-100 text-red-700">
+                    {camp.bloodGroup} Target
+                  </span>
                 </div>
+                <h4 className="font-bold text-xs text-slate-900">{camp.title}</h4>
+                <p className="text-[11px] text-slate-500 mt-1">{camp.location}</p>
 
-                <div className=mt-5 pt-4 border-t border-slate-100>
-                  <button
-                    onClick={() => handleMobilize(camp.id)}
-                    className=w-full py-2.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5
-                  >
-                    <Megaphone className=w-4 h-4 />
-                    <span>Mobilize Community Donors</span>
-                  </button>
+                <div className="my-3">
+                  <div className="flex justify-between text-[11px] font-bold mb-1">
+                    <span className="text-slate-500">Mobilized Progress</span>
+                    <span className="text-amber-700">{camp.current} / {camp.required} Pints</span>
+                  </div>
+                  <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                    <div
+                      className="bg-amber-600 h-full rounded-full transition-all"
+                      style={{ width: `${Math.min(100, (camp.current / camp.required) * 100)}%` }}
+                    ></div>
+                  </div>
                 </div>
               </div>
-            );
-          })}
+
+              <button
+                onClick={() => handleMobilize(camp.id)}
+                className="mt-2 w-full py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow-xs transition-all"
+              >
+                📢 Broadcast WhatsApp Alert (+2)
+              </button>
+            </div>
+          ))}
         </div>
       </div>
 

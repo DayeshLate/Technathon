@@ -17,6 +17,7 @@ import ngosRouter from './routes/ngos.js';
 import analyticsRouter from './routes/analytics.js';
 import notificationsRouter from './routes/notifications.js';
 import demoRouter from './routes/demo.js';
+import databaseRouter from './routes/database.js';
 
 dotenv.config();
 
@@ -68,6 +69,7 @@ app.use('/api/ngos', ngosRouter);
 app.use('/api/analytics', analyticsRouter);
 app.use('/api/notifications', notificationsRouter);
 app.use('/api/demo', demoRouter);
+app.use('/api/database', databaseRouter);
 
 // Health Check
 app.get('/api/health', (req, res) => {
@@ -75,6 +77,11 @@ app.get('/api/health', (req, res) => {
     status: 'online',
     timestamp: new Date().toISOString(),
     uptimeSeconds: Math.round(process.uptime()),
+    mysql: {
+      connected: store.mysqlConnected,
+      database: process.env.DB_NAME || 'BloodBank',
+      engine: 'MySQL 8.0'
+    },
     database: {
       hospitals: store.getHospitals().length,
       bloodBanks: store.getBloodBanks().length,
@@ -191,6 +198,8 @@ app.listen(PORT, () => {
   console.log(`🩸 RED RELAY BACKEND SERVER ONLINE`);
   console.log(`🚀 API Base URL:       http://localhost:${PORT}/api`);
   console.log(`📡 Real-Time SSE Feed: http://localhost:${PORT}/api/events`);
+  console.log(`🗄️ MySQL Database:     mysql://root@localhost:3306/BloodBank`);
+  console.log(`📊 DB Status Endpoint: http://localhost:${PORT}/api/database/status`);
   console.log(`📋 API Documentation:  http://localhost:${PORT}/api/docs`);
   console.log(`❤️ Health Check:       http://localhost:${PORT}/api/health`);
   console.log(`======================================================\n`);

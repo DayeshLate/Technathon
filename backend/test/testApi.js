@@ -20,8 +20,9 @@ async function testEndpoint(name, url, options = {}) {
 async function runTests() {
   console.log('🧪 Starting Red Relay Backend API Test Suite...\n');
 
-  // 1. Health
+  // 1. Health & Database
   await testEndpoint('Health Check', `${BASE_URL}/health`);
+  await testEndpoint('MySQL Database Status', `${BASE_URL}/database/status`);
 
   // 2. Hospitals
   const hospData = await testEndpoint('List Hospitals', `${BASE_URL}/hospitals`);

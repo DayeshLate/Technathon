@@ -85,3 +85,39 @@ npm run test
 ```bash
 npm run build
 ```
+
+---
+
+## 🗄️ MySQL Database Setup (`BloodBank`)
+
+The application connects to a real MySQL 8.0 database named **`BloodBank`**.
+
+### Database Configuration (`backend/.env`)
+```env
+PORT=5000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=root
+DB_NAME=BloodBank
+```
+
+### Relational Tables in `BloodBank`:
+- `hospitals`: Registered healthcare centers, coordinates & triage priority.
+- `blood_banks`: Blood centres and inventory thresholds.
+- `blood_bank_inventory`: Live per-blood-group available and reserved units.
+- `donors`: Donor profiles, blood group, eligibility, GPS location, and availability flag.
+- `emergency_requests`: Active and historical patient requests, units required, priority score & status.
+- `ngos`: Volunteer groups, donation drives, and registered camp volunteers.
+- `notifications`: Real-time system notifications and alerts.
+- `audit_logs`: Audit trace of all emergency dispatches and actions.
+- `blood_compatibility`: ABO/Rh compatibility matrix.
+- `system_metadata`: AI forecasting insights and analytics.
+
+### Inspecting Directly via MySQL CLI:
+```bash
+mysql -u root -proot -e "USE BloodBank; SHOW TABLES;"
+mysql -u root -proot -e "USE BloodBank; SELECT * FROM emergency_requests ORDER BY created_at DESC LIMIT 5;"
+mysql -u root -proot -e "USE BloodBank; SELECT * FROM blood_bank_inventory LIMIT 10;"
+```
+

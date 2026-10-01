@@ -66,6 +66,16 @@
       "type": "Super Specialty"
     },
     {
+      "id": "H10",
+      "name": "Nanavati Max Super Speciality Hospital",
+      "area": "Vile Parle West",
+      "lat": 19.0967,
+      "lng": 72.8407,
+      "contact": "+91 22 2626 7500",
+      "emergencyUnitsNeeded": 3,
+      "type": "Super Specialty"
+    },
+    {
       "id": "H2",
       "name": "KEM Hospital & Seth GS Medical College",
       "area": "Parel",
@@ -144,16 +154,6 @@
       "contact": "+91 22 2576 3300",
       "emergencyUnitsNeeded": 2,
       "type": "Multi Specialty"
-    },
-    {
-      "id": "H10",
-      "name": "Nanavati Max Super Speciality Hospital",
-      "area": "Vile Parle West",
-      "lat": 19.0967,
-      "lng": 72.8407,
-      "contact": "+91 22 2626 7500",
-      "emergencyUnitsNeeded": 3,
-      "type": "Super Specialty"
     }
   ],
   "bloodBanks": [
@@ -164,7 +164,8 @@
       "lat": 19.0178,
       "lng": 72.8478,
       "contact": "+91 22 2266 3390",
-      "distanceKm": 2.4,
+      "address": null,
+      "threshold": 15,
       "inventory": {
         "A+": 32,
         "A-": 8,
@@ -184,8 +185,7 @@
         "AB-": 1,
         "O+": 8,
         "O-": 3
-      },
-      "threshold": 15
+      }
     },
     {
       "id": "BB2",
@@ -194,7 +194,8 @@
       "lat": 19.0195,
       "lng": 72.8432,
       "contact": "+91 22 2418 2826",
-      "distanceKm": 3.1,
+      "address": null,
+      "threshold": 15,
       "inventory": {
         "A+": 25,
         "A-": 6,
@@ -214,8 +215,7 @@
         "AB-": 0,
         "O+": 6,
         "O-": 2
-      },
-      "threshold": 15
+      }
     },
     {
       "id": "BB3",
@@ -224,7 +224,8 @@
       "lat": 19.0863,
       "lng": 72.909,
       "contact": "+91 22 2506 3131",
-      "distanceKm": 5.6,
+      "address": null,
+      "threshold": 18,
       "inventory": {
         "A+": 40,
         "A-": 11,
@@ -244,8 +245,7 @@
         "AB-": 1,
         "O+": 9,
         "O-": 2
-      },
-      "threshold": 18
+      }
     },
     {
       "id": "BB4",
@@ -254,7 +254,8 @@
       "lat": 19.1245,
       "lng": 72.835,
       "contact": "+91 22 2673 8899",
-      "distanceKm": 4.2,
+      "address": null,
+      "threshold": 15,
       "inventory": {
         "A+": 28,
         "A-": 5,
@@ -274,8 +275,7 @@
         "AB-": 1,
         "O+": 7,
         "O-": 1
-      },
-      "threshold": 15
+      }
     },
     {
       "id": "BB5",
@@ -284,7 +284,8 @@
       "lat": 19.066,
       "lng": 72.868,
       "contact": "+91 22 2654 4455",
-      "distanceKm": 1.8,
+      "address": null,
+      "threshold": 20,
       "inventory": {
         "A+": 45,
         "A-": 12,
@@ -304,8 +305,7 @@
         "AB-": 1,
         "O+": 10,
         "O-": 3
-      },
-      "threshold": 20
+      }
     },
     {
       "id": "BB6",
@@ -314,7 +314,8 @@
       "lat": 19.0726,
       "lng": 72.8796,
       "contact": "+91 22 2503 1234",
-      "distanceKm": 3.5,
+      "address": null,
+      "threshold": 15,
       "inventory": {
         "A+": 20,
         "A-": 4,
@@ -334,8 +335,7 @@
         "AB-": 0,
         "O+": 5,
         "O-": 1
-      },
-      "threshold": 15
+      }
     },
     {
       "id": "BB7",
@@ -344,7 +344,8 @@
       "lat": 19.2307,
       "lng": 72.8567,
       "contact": "+91 22 2892 5678",
-      "distanceKm": 12.4,
+      "address": null,
+      "threshold": 15,
       "inventory": {
         "A+": 35,
         "A-": 9,
@@ -364,8 +365,7 @@
         "AB-": 1,
         "O+": 6,
         "O-": 2
-      },
-      "threshold": 15
+      }
     },
     {
       "id": "BB8",
@@ -374,7 +374,8 @@
       "lat": 19.0771,
       "lng": 72.9986,
       "contact": "+91 22 2782 9900",
-      "distanceKm": 16.8,
+      "address": null,
+      "threshold": 20,
       "inventory": {
         "A+": 48,
         "A-": 14,
@@ -394,8 +395,7 @@
         "AB-": 1,
         "O+": 8,
         "O-": 3
-      },
-      "threshold": 20
+      }
     }
   ],
   "donors": [
@@ -407,13 +407,12 @@
       "latitude": 19.0544,
       "longitude": 72.8582,
       "phone": "+91 982001000",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-08-24",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 30,
+      "lastDonationDate": "2026-08-24",
       "totalDonations": 2,
-      "livesImpacted": 6,
-      "responseTimeAvgMin": 6
+      "badge": "Donor"
     },
     {
       "id": "D101",
@@ -423,13 +422,12 @@
       "latitude": 19.1063,
       "longitude": 72.8422,
       "phone": "+91 982001037",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-08-17",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 37,
+      "lastDonationDate": "2026-08-17",
       "totalDonations": 3,
-      "livesImpacted": 9,
-      "responseTimeAvgMin": 7
+      "badge": "Donor"
     },
     {
       "id": "D102",
@@ -439,13 +437,12 @@
       "latitude": 19.0352,
       "longitude": 72.84,
       "phone": "+91 982001074",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-08-10",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 44,
+      "lastDonationDate": "2026-08-10",
       "totalDonations": 4,
-      "livesImpacted": 12,
-      "responseTimeAvgMin": 8
+      "badge": "Donor"
     },
     {
       "id": "D103",
@@ -455,13 +452,12 @@
       "latitude": 19.0531,
       "longitude": 72.8897,
       "phone": "+91 982001111",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-08-03",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 51,
+      "lastDonationDate": "2026-08-03",
       "totalDonations": 5,
-      "livesImpacted": 15,
-      "responseTimeAvgMin": 9
+      "badge": "Donor"
     },
     {
       "id": "D104",
@@ -471,13 +467,12 @@
       "latitude": 19.1318,
       "longitude": 72.8885,
       "phone": "+91 982001148",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-27",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 58,
+      "lastDonationDate": "2026-07-27",
       "totalDonations": 6,
-      "livesImpacted": 18,
-      "responseTimeAvgMin": 10
+      "badge": "Donor"
     },
     {
       "id": "D105",
@@ -487,13 +482,12 @@
       "latitude": 18.9958,
       "longitude": 72.8497,
       "phone": "+91 982001185",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-07-20",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 65,
+      "lastDonationDate": "2026-07-20",
       "totalDonations": 7,
-      "livesImpacted": 21,
-      "responseTimeAvgMin": 11
+      "badge": "Donor"
     },
     {
       "id": "D106",
@@ -503,13 +497,12 @@
       "latitude": 19.0983,
       "longitude": 72.833,
       "phone": "+91 982001222",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-13",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 72,
+      "lastDonationDate": "2026-07-13",
       "totalDonations": 8,
-      "livesImpacted": 24,
-      "responseTimeAvgMin": 12
+      "badge": "Donor"
     },
     {
       "id": "D107",
@@ -519,13 +512,12 @@
       "latitude": 19.0975,
       "longitude": 72.8914,
       "phone": "+91 982001259",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-06",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 79,
+      "lastDonationDate": "2026-07-06",
       "totalDonations": 9,
-      "livesImpacted": 27,
-      "responseTimeAvgMin": 13
+      "badge": "Donor"
     },
     {
       "id": "D108",
@@ -535,13 +527,12 @@
       "latitude": 19.1807,
       "longitude": 72.9943,
       "phone": "+91 982001296",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-29",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 86,
+      "lastDonationDate": "2026-06-29",
       "totalDonations": 10,
-      "livesImpacted": 30,
-      "responseTimeAvgMin": 6
+      "badge": "Donor"
     },
     {
       "id": "D109",
@@ -551,13 +542,12 @@
       "latitude": 19.0919,
       "longitude": 72.9928,
       "phone": "+91 982001333",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-22",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 93,
+      "lastDonationDate": "2026-06-22",
       "totalDonations": 11,
-      "livesImpacted": 33,
-      "responseTimeAvgMin": 7
+      "badge": "Donor"
     },
     {
       "id": "D110",
@@ -567,13 +557,12 @@
       "latitude": 19.2174,
       "longitude": 72.8454,
       "phone": "+91 982001370",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-06-15",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 100,
+      "lastDonationDate": "2026-06-15",
       "totalDonations": 12,
-      "livesImpacted": 36,
-      "responseTimeAvgMin": 8
+      "badge": "Donor"
     },
     {
       "id": "D111",
@@ -583,13 +572,12 @@
       "latitude": 19.0185,
       "longitude": 72.8357,
       "phone": "+91 982001407",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-08",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 107,
+      "lastDonationDate": "2026-06-08",
       "totalDonations": 13,
-      "livesImpacted": 39,
-      "responseTimeAvgMin": 9
+      "badge": "Donor"
     },
     {
       "id": "D112",
@@ -599,13 +587,12 @@
       "latitude": 19.0617,
       "longitude": 72.8261,
       "phone": "+91 982001444",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-01",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 114,
+      "lastDonationDate": "2026-06-01",
       "totalDonations": 14,
-      "livesImpacted": 42,
-      "responseTimeAvgMin": 10
+      "badge": "Donor"
     },
     {
       "id": "D113",
@@ -615,13 +602,12 @@
       "latitude": 19.1009,
       "longitude": 72.8552,
       "phone": "+91 982001481",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-25",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 121,
+      "lastDonationDate": "2026-05-25",
       "totalDonations": 15,
-      "livesImpacted": 45,
-      "responseTimeAvgMin": 11
+      "badge": "Donor"
     },
     {
       "id": "D114",
@@ -631,13 +617,12 @@
       "latitude": 19.037,
       "longitude": 72.8547,
       "phone": "+91 982001518",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-18",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 128,
+      "lastDonationDate": "2026-05-18",
       "totalDonations": 2,
-      "livesImpacted": 6,
-      "responseTimeAvgMin": 12
+      "badge": "Donor"
     },
     {
       "id": "D115",
@@ -647,13 +632,12 @@
       "latitude": 19.0554,
       "longitude": 72.857,
       "phone": "+91 982001555",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-05-11",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 135,
+      "lastDonationDate": "2026-05-11",
       "totalDonations": 3,
-      "livesImpacted": 9,
-      "responseTimeAvgMin": 13
+      "badge": "Donor"
     },
     {
       "id": "D116",
@@ -663,13 +647,12 @@
       "latitude": 19.1261,
       "longitude": 72.9172,
       "phone": "+91 982001592",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-04",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 142,
+      "lastDonationDate": "2026-05-04",
       "totalDonations": 4,
-      "livesImpacted": 12,
-      "responseTimeAvgMin": 6
+      "badge": "Donor"
     },
     {
       "id": "D117",
@@ -679,13 +662,12 @@
       "latitude": 19.0032,
       "longitude": 72.844,
       "phone": "+91 982001629",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-04-27",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 149,
+      "lastDonationDate": "2026-04-27",
       "totalDonations": 5,
-      "livesImpacted": 15,
-      "responseTimeAvgMin": 7
+      "badge": "Donor"
     },
     {
       "id": "D118",
@@ -695,13 +677,12 @@
       "latitude": 19.0914,
       "longitude": 72.8117,
       "phone": "+91 982001666",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-08-18",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 36,
+      "lastDonationDate": "2026-08-18",
       "totalDonations": 6,
-      "livesImpacted": 18,
-      "responseTimeAvgMin": 8
+      "badge": "Donor"
     },
     {
       "id": "D119",
@@ -711,13 +692,12 @@
       "latitude": 19.1017,
       "longitude": 72.9253,
       "phone": "+91 982001703",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-08-11",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 43,
+      "lastDonationDate": "2026-08-11",
       "totalDonations": 7,
-      "livesImpacted": 21,
-      "responseTimeAvgMin": 9
+      "badge": "Donor"
     },
     {
       "id": "D120",
@@ -727,13 +707,12 @@
       "latitude": 19.1805,
       "longitude": 72.9703,
       "phone": "+91 982001740",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-08-04",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 50,
+      "lastDonationDate": "2026-08-04",
       "totalDonations": 8,
-      "livesImpacted": 24,
-      "responseTimeAvgMin": 10
+      "badge": "Donor"
     },
     {
       "id": "D121",
@@ -743,13 +722,12 @@
       "latitude": 19.0882,
       "longitude": 72.9909,
       "phone": "+91 982001777",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-28",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 57,
+      "lastDonationDate": "2026-07-28",
       "totalDonations": 9,
-      "livesImpacted": 27,
-      "responseTimeAvgMin": 11
+      "badge": "Donor"
     },
     {
       "id": "D122",
@@ -759,13 +737,12 @@
       "latitude": 19.224,
       "longitude": 72.872,
       "phone": "+91 982001814",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-21",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 64,
+      "lastDonationDate": "2026-07-21",
       "totalDonations": 10,
-      "livesImpacted": 30,
-      "responseTimeAvgMin": 12
+      "badge": "Donor"
     },
     {
       "id": "D123",
@@ -775,13 +752,12 @@
       "latitude": 19.0111,
       "longitude": 72.8023,
       "phone": "+91 982001851",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-14",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 71,
+      "lastDonationDate": "2026-07-14",
       "totalDonations": 11,
-      "livesImpacted": 33,
-      "responseTimeAvgMin": 13
+      "badge": "Donor"
     },
     {
       "id": "D124",
@@ -791,13 +767,12 @@
       "latitude": 19.0677,
       "longitude": 72.8442,
       "phone": "+91 982001888",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-07",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 78,
+      "lastDonationDate": "2026-07-07",
       "totalDonations": 12,
-      "livesImpacted": 36,
-      "responseTimeAvgMin": 6
+      "badge": "Donor"
     },
     {
       "id": "D125",
@@ -807,13 +782,12 @@
       "latitude": 19.0981,
       "longitude": 72.8647,
       "phone": "+91 982001925",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-06-30",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 85,
+      "lastDonationDate": "2026-06-30",
       "totalDonations": 13,
-      "livesImpacted": 39,
-      "responseTimeAvgMin": 7
+      "badge": "Donor"
     },
     {
       "id": "D126",
@@ -823,13 +797,12 @@
       "latitude": 19.0357,
       "longitude": 72.8241,
       "phone": "+91 982001962",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-23",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 92,
+      "lastDonationDate": "2026-06-23",
       "totalDonations": 14,
-      "livesImpacted": 42,
-      "responseTimeAvgMin": 8
+      "badge": "Donor"
     },
     {
       "id": "D127",
@@ -839,13 +812,12 @@
       "latitude": 19.0604,
       "longitude": 72.8884,
       "phone": "+91 982001999",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-16",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 99,
+      "lastDonationDate": "2026-06-16",
       "totalDonations": 15,
-      "livesImpacted": 45,
-      "responseTimeAvgMin": 9
+      "badge": "Donor"
     },
     {
       "id": "D128",
@@ -855,13 +827,12 @@
       "latitude": 19.1189,
       "longitude": 72.906,
       "phone": "+91 982002036",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-09",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 106,
+      "lastDonationDate": "2026-06-09",
       "totalDonations": 2,
-      "livesImpacted": 6,
-      "responseTimeAvgMin": 10
+      "badge": "Donor"
     },
     {
       "id": "D129",
@@ -871,13 +842,12 @@
       "latitude": 19.0104,
       "longitude": 72.8275,
       "phone": "+91 982002073",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-02",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 113,
+      "lastDonationDate": "2026-06-02",
       "totalDonations": 3,
-      "livesImpacted": 9,
-      "responseTimeAvgMin": 11
+      "badge": "Donor"
     },
     {
       "id": "D130",
@@ -887,13 +857,12 @@
       "latitude": 19.0864,
       "longitude": 72.8449,
       "phone": "+91 982002110",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-05-26",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 120,
+      "lastDonationDate": "2026-05-26",
       "totalDonations": 4,
-      "livesImpacted": 12,
-      "responseTimeAvgMin": 12
+      "badge": "Donor"
     },
     {
       "id": "D131",
@@ -903,13 +872,12 @@
       "latitude": 19.103,
       "longitude": 72.8976,
       "phone": "+91 982002147",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-19",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 127,
+      "lastDonationDate": "2026-05-19",
       "totalDonations": 5,
-      "livesImpacted": 15,
-      "responseTimeAvgMin": 13
+      "badge": "Donor"
     },
     {
       "id": "D132",
@@ -919,13 +887,12 @@
       "latitude": 19.1832,
       "longitude": 72.974,
       "phone": "+91 982002184",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-12",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 134,
+      "lastDonationDate": "2026-05-12",
       "totalDonations": 6,
-      "livesImpacted": 18,
-      "responseTimeAvgMin": 6
+      "badge": "Donor"
     },
     {
       "id": "D133",
@@ -935,13 +902,12 @@
       "latitude": 19.0822,
       "longitude": 73.0136,
       "phone": "+91 982002221",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-05",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 141,
+      "lastDonationDate": "2026-05-05",
       "totalDonations": 7,
-      "livesImpacted": 21,
-      "responseTimeAvgMin": 7
+      "badge": "Donor"
     },
     {
       "id": "D134",
@@ -951,13 +917,12 @@
       "latitude": 19.2314,
       "longitude": 72.838,
       "phone": "+91 982002258",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-04-28",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 148,
+      "lastDonationDate": "2026-04-28",
       "totalDonations": 8,
-      "livesImpacted": 24,
-      "responseTimeAvgMin": 8
+      "badge": "Donor"
     },
     {
       "id": "D135",
@@ -967,13 +932,12 @@
       "latitude": 19.0045,
       "longitude": 72.8248,
       "phone": "+91 982002295",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-08-19",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 35,
+      "lastDonationDate": "2026-08-19",
       "totalDonations": 9,
-      "livesImpacted": 27,
-      "responseTimeAvgMin": 9
+      "badge": "Donor"
     },
     {
       "id": "D136",
@@ -983,13 +947,12 @@
       "latitude": 19.0715,
       "longitude": 72.8481,
       "phone": "+91 982002332",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-08-12",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 42,
+      "lastDonationDate": "2026-08-12",
       "totalDonations": 10,
-      "livesImpacted": 30,
-      "responseTimeAvgMin": 10
+      "badge": "Donor"
     },
     {
       "id": "D137",
@@ -999,13 +962,12 @@
       "latitude": 19.0983,
       "longitude": 72.8369,
       "phone": "+91 982002369",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-08-05",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 49,
+      "lastDonationDate": "2026-08-05",
       "totalDonations": 11,
-      "livesImpacted": 33,
-      "responseTimeAvgMin": 11
+      "badge": "Donor"
     },
     {
       "id": "D138",
@@ -1015,13 +977,12 @@
       "latitude": 19.0316,
       "longitude": 72.8572,
       "phone": "+91 982002406",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-29",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 56,
+      "lastDonationDate": "2026-07-29",
       "totalDonations": 12,
-      "livesImpacted": 36,
-      "responseTimeAvgMin": 12
+      "badge": "Donor"
     },
     {
       "id": "D139",
@@ -1031,13 +992,12 @@
       "latitude": 19.0672,
       "longitude": 72.8721,
       "phone": "+91 982002443",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-22",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 63,
+      "lastDonationDate": "2026-07-22",
       "totalDonations": 13,
-      "livesImpacted": 39,
-      "responseTimeAvgMin": 13
+      "badge": "Donor"
     },
     {
       "id": "D140",
@@ -1047,13 +1007,12 @@
       "latitude": 19.1115,
       "longitude": 72.8947,
       "phone": "+91 982002480",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-07-15",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 70,
+      "lastDonationDate": "2026-07-15",
       "totalDonations": 14,
-      "livesImpacted": 42,
-      "responseTimeAvgMin": 6
+      "badge": "Donor"
     },
     {
       "id": "D141",
@@ -1063,13 +1022,12 @@
       "latitude": 19.0161,
       "longitude": 72.859,
       "phone": "+91 982002517",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-08",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 77,
+      "lastDonationDate": "2026-07-08",
       "totalDonations": 15,
-      "livesImpacted": 45,
-      "responseTimeAvgMin": 7
+      "badge": "Donor"
     },
     {
       "id": "D142",
@@ -1079,13 +1037,12 @@
       "latitude": 19.0841,
       "longitude": 72.8143,
       "phone": "+91 982002554",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-07-01",
       "eligibilityStatus": "Cooldown Period",
-      "daysSinceDonation": 84,
+      "lastDonationDate": "2026-07-01",
       "totalDonations": 2,
-      "livesImpacted": 6,
-      "responseTimeAvgMin": 8
+      "badge": "Donor"
     },
     {
       "id": "D143",
@@ -1095,13 +1052,12 @@
       "latitude": 19.1012,
       "longitude": 72.9069,
       "phone": "+91 982002591",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-24",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 91,
+      "lastDonationDate": "2026-06-24",
       "totalDonations": 3,
-      "livesImpacted": 9,
-      "responseTimeAvgMin": 9
+      "badge": "Donor"
     },
     {
       "id": "D144",
@@ -1111,13 +1067,12 @@
       "latitude": 19.1886,
       "longitude": 72.9922,
       "phone": "+91 982002628",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-17",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 98,
+      "lastDonationDate": "2026-06-17",
       "totalDonations": 4,
-      "livesImpacted": 12,
-      "responseTimeAvgMin": 10
+      "badge": "Donor"
     },
     {
       "id": "D145",
@@ -1127,13 +1082,12 @@
       "latitude": 19.0749,
       "longitude": 72.9801,
       "phone": "+91 982002665",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-06-10",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 105,
+      "lastDonationDate": "2026-06-10",
       "totalDonations": 5,
-      "livesImpacted": 15,
-      "responseTimeAvgMin": 11
+      "badge": "Donor"
     },
     {
       "id": "D146",
@@ -1143,13 +1097,12 @@
       "latitude": 19.2385,
       "longitude": 72.8645,
       "phone": "+91 982002702",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-06-03",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 112,
+      "lastDonationDate": "2026-06-03",
       "totalDonations": 6,
-      "livesImpacted": 18,
-      "responseTimeAvgMin": 12
+      "badge": "Donor"
     },
     {
       "id": "D147",
@@ -1159,13 +1112,12 @@
       "latitude": 18.9999,
       "longitude": 72.8231,
       "phone": "+91 982002739",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-27",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 119,
+      "lastDonationDate": "2026-05-27",
       "totalDonations": 7,
-      "livesImpacted": 21,
-      "responseTimeAvgMin": 13
+      "badge": "Donor"
     },
     {
       "id": "D148",
@@ -1175,13 +1127,12 @@
       "latitude": 19.0723,
       "longitude": 72.8239,
       "phone": "+91 982002776",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-20",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 126,
+      "lastDonationDate": "2026-05-20",
       "totalDonations": 8,
-      "livesImpacted": 24,
-      "responseTimeAvgMin": 6
+      "badge": "Donor"
     },
     {
       "id": "D149",
@@ -1191,13 +1142,12 @@
       "latitude": 19.1016,
       "longitude": 72.8708,
       "phone": "+91 982002813",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-05-13",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 133,
+      "lastDonationDate": "2026-05-13",
       "totalDonations": 9,
-      "livesImpacted": 27,
-      "responseTimeAvgMin": 7
+      "badge": "Donor"
     },
     {
       "id": "D150",
@@ -1207,13 +1157,12 @@
       "latitude": 19.0252,
       "longitude": 72.8361,
       "phone": "+91 982002850",
+      "email": null,
       "available": false,
-      "lastDonationDate": "2026-05-06",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 140,
+      "lastDonationDate": "2026-05-06",
       "totalDonations": 10,
-      "livesImpacted": 30,
-      "responseTimeAvgMin": 8
+      "badge": "Donor"
     },
     {
       "id": "D151",
@@ -1223,13 +1172,12 @@
       "latitude": 19.0747,
       "longitude": 72.8662,
       "phone": "+91 982002887",
+      "email": null,
       "available": true,
-      "lastDonationDate": "2026-04-29",
       "eligibilityStatus": "Eligible",
-      "daysSinceDonation": 147,
+      "lastDonationDate": "2026-04-29",
       "totalDonations": 11,
-      "livesImpacted": 33,
-      "responseTimeAvgMin": 9
+      "badge": "Donor"
     }
   ],
   "ngos": [
@@ -1237,122 +1185,65 @@
       "id": "NGO1",
       "name": "Think Foundation Blood Mission",
       "area": "Dadar, Mumbai",
-      "activeVolunteers": 180,
-      "donorsMobilized": 1420,
-      "activeCampaigns": [
-        {
-          "id": "C1",
-          "title": "Urgent O- Rare Group Emergency Drive",
-          "targetDonors": 15,
-          "currentPledged": 9,
-          "location": "Mumbai Central & Dadar",
-          "bloodGroup": "O-",
-          "urgency": "Critical"
-        }
-      ]
+      "contact": null,
+      "description": null,
+      "camps": [],
+      "registeredVolunteers": []
     },
     {
       "id": "NGO2",
       "name": "Mumbai Youth Red Cross Brigade",
       "area": "Fort / Nariman Point",
-      "activeVolunteers": 240,
-      "donorsMobilized": 2150,
-      "activeCampaigns": [
-        {
-          "id": "C2",
-          "title": "Thalassemia Pediatric Support Drive",
-          "targetDonors": 40,
-          "currentPledged": 32,
-          "location": "KEM & Sion Hospitals",
-          "bloodGroup": "B+",
-          "urgency": "High"
-        }
-      ]
+      "contact": null,
+      "description": null,
+      "camps": [],
+      "registeredVolunteers": []
     },
     {
       "id": "NGO3",
       "name": "Lions Club Blood Coordination Cell",
       "area": "Andheri West",
-      "activeVolunteers": 110,
-      "donorsMobilized": 980,
-      "activeCampaigns": [
-        {
-          "id": "C3",
-          "title": "Western Suburbs Weekend Mobile Camp",
-          "targetDonors": 50,
-          "currentPledged": 28,
-          "location": "Lokhandwala Andheri",
-          "bloodGroup": "All",
-          "urgency": "Normal"
-        }
-      ]
+      "contact": null,
+      "description": null,
+      "camps": [],
+      "registeredVolunteers": []
     },
     {
       "id": "NGO4",
       "name": "Helping Hands Healthcare Trust",
       "area": "Kurla & Chembur",
-      "activeVolunteers": 95,
-      "donorsMobilized": 760,
-      "activeCampaigns": [
-        {
-          "id": "C4",
-          "title": "Emergency Platelet & Plasma Mobilization",
-          "targetDonors": 20,
-          "currentPledged": 14,
-          "location": "Kurla LTMGH Corridor",
-          "bloodGroup": "A-",
-          "urgency": "High"
-        }
-      ]
+      "contact": null,
+      "description": null,
+      "camps": [],
+      "registeredVolunteers": []
     },
     {
       "id": "NGO5",
       "name": "Nanhi Pari Foundation Blood Wings",
       "area": "Thane & Mulund",
-      "activeVolunteers": 130,
-      "donorsMobilized": 1120,
-      "activeCampaigns": [
-        {
-          "id": "C5",
-          "title": "Eastern Expressway Rapid Donor Relay",
-          "targetDonors": 25,
-          "currentPledged": 19,
-          "location": "Fortis Mulund Hub",
-          "bloodGroup": "O+",
-          "urgency": "Normal"
-        }
-      ]
+      "contact": null,
+      "description": null,
+      "camps": [],
+      "registeredVolunteers": []
     }
   ],
   "requests": [
     {
-      "id": "REQ-2026-1764",
+      "id": "REQ-2026-1405",
+      "patientCaseId": "PT-TEST-2026",
       "hospitalId": "H1",
       "hospitalName": "Lilavati Hospital & Research Centre",
-      "patientCaseId": "PT-TEST-2026",
+      "area": null,
+      "latitude": 19.0514,
+      "longitude": 72.8295,
       "bloodGroup": "O-",
       "unitsRequired": 3,
       "unitsFulfilled": 0,
       "urgency": "Critical",
-      "priority": "Critical",
-      "priorityScore": 98,
-      "priorityReason": "Ultra-Critical: Response window is only 35 min with high unit demand (3 units). Rapid relay protocol activated.",
-      "requiredByMinutes": 35,
-      "createdAt": "2026-09-30T09:44:00.567Z",
-      "requiredBy": "2026-09-30T10:19:00.567Z",
-      "location": "Bandra West, Mumbai",
-      "latitude": 19.0514,
-      "longitude": 72.8295,
       "status": "DONORS_IDENTIFIED",
+      "requiredByMinutes": 35,
+      "priorityScore": 98,
       "notes": "Automated test emergency trauma transfusion.",
-      "isSuspicious": true,
-      "similarityScore": 100,
-      "fraudReason": "Active request REQ-2026-1220 at Lilavati Hospital & Research Centre has 100% patient identifier match. Possible duplicate emergency entry.",
-      "duplicateOfRequestId": "REQ-2026-1220",
-      "compatibleDonorsFound": 6,
-      "nearbyBloodBanks": 8,
-      "availableUnitsNearby": 41,
-      "nearestDistanceKm": 9.2,
       "matchedDonorsList": [
         {
           "donorId": "D131",
@@ -1474,36 +1365,26 @@
           "latitude": 19.0554,
           "longitude": 72.857
         }
-      ]
+      ],
+      "duplicateFlag": false,
+      "createdAt": "2026-10-01T03:16:24.085Z"
     },
     {
-      "id": "REQ-2026-1220",
+      "id": "REQ-2026-1808",
+      "patientCaseId": "PT-TEST-2026",
       "hospitalId": "H1",
       "hospitalName": "Lilavati Hospital & Research Centre",
-      "patientCaseId": "PT-TEST-2026",
+      "area": null,
+      "latitude": 19.0514,
+      "longitude": 72.8295,
       "bloodGroup": "O-",
       "unitsRequired": 3,
       "unitsFulfilled": 0,
       "urgency": "Critical",
-      "priority": "Critical",
-      "priorityScore": 98,
-      "priorityReason": "Ultra-Critical: Response window is only 35 min with high unit demand (3 units). Rapid relay protocol activated.",
-      "requiredByMinutes": 35,
-      "createdAt": "2026-09-30T05:48:38.287Z",
-      "requiredBy": "2026-09-30T06:23:38.287Z",
-      "location": "Bandra West, Mumbai",
-      "latitude": 19.0514,
-      "longitude": 72.8295,
       "status": "DONORS_IDENTIFIED",
+      "requiredByMinutes": 35,
+      "priorityScore": 98,
       "notes": "Automated test emergency trauma transfusion.",
-      "isSuspicious": false,
-      "similarityScore": 0,
-      "fraudReason": null,
-      "duplicateOfRequestId": null,
-      "compatibleDonorsFound": 6,
-      "nearbyBloodBanks": 8,
-      "availableUnitsNearby": 41,
-      "nearestDistanceKm": 9.2,
       "matchedDonorsList": [
         {
           "donorId": "D131",
@@ -1625,30 +1506,26 @@
           "latitude": 19.0554,
           "longitude": 72.857
         }
-      ]
+      ],
+      "duplicateFlag": false,
+      "createdAt": "2026-10-01T03:03:05.764Z"
     },
     {
       "id": "REQ-2026-1048",
+      "patientCaseId": "PT-99420 (Emergency Trauma)",
       "hospitalId": "H1",
       "hospitalName": "Lilavati Hospital & Research Centre",
-      "patientCaseId": "PT-99420 (Emergency Trauma)",
+      "area": null,
+      "latitude": 19.0514,
+      "longitude": 72.8295,
       "bloodGroup": "O-",
       "unitsRequired": 4,
       "unitsFulfilled": 0,
       "urgency": "Critical",
-      "priorityScore": 98,
+      "status": "MATCHING",
       "requiredByMinutes": 42,
-      "createdAt": "2026-09-23T03:20:21.896Z",
-      "requiredBy": "2026-09-23T04:20:21.896Z",
-      "location": "Bandra West, Mumbai",
-      "latitude": 19.0514,
-      "longitude": 72.8295,
-      "status": "DONORS_IDENTIFIED",
+      "priorityScore": 98,
       "notes": "Urgent aortic rupture trauma surgery. Universal negative donor needed immediately.",
-      "compatibleDonorsFound": 8,
-      "nearbyBloodBanks": 3,
-      "availableUnitsNearby": 5,
-      "nearestDistanceKm": 2.4,
       "matchedDonorsList": [
         {
           "donorId": "D104",
@@ -1730,154 +1607,141 @@
           "matchScore": 74,
           "status": "Pending"
         }
-      ]
+      ],
+      "duplicateFlag": false,
+      "createdAt": "2026-09-23T03:20:21.896Z"
     },
     {
       "id": "REQ-2026-1042",
+      "patientCaseId": "PT-88192 (Duplicate Suspicion Flag)",
       "hospitalId": "H2",
       "hospitalName": "KEM Hospital & Seth GS Medical College",
-      "patientCaseId": "PT-88192 (Duplicate Suspicion Flag)",
+      "area": null,
+      "latitude": 19.0028,
+      "longitude": 72.8427,
       "bloodGroup": "B-",
       "unitsRequired": 6,
       "unitsFulfilled": 0,
       "urgency": "Critical",
-      "priorityScore": 94,
-      "requiredByMinutes": 30,
-      "createdAt": "2026-09-23T03:13:21.896Z",
-      "requiredBy": "2026-09-23T04:08:21.896Z",
-      "location": "Parel, Mumbai",
-      "latitude": 19.0028,
-      "longitude": 72.8427,
       "status": "ALERT_SENT",
+      "requiredByMinutes": 30,
+      "priorityScore": 94,
       "notes": "Severe post-partum hemorrhage. High similarity with concurrent ward request.",
-      "isSuspicious": true,
-      "similarityScore": 87,
-      "fraudReason": "Identical patient surname, blood group and unit count submitted from adjacent ward terminal within 4 minutes.",
-      "compatibleDonorsFound": 6,
-      "nearbyBloodBanks": 2,
-      "availableUnitsNearby": 8,
-      "nearestDistanceKm": 1.8
-    },
-    {
-      "id": "REQ-2026-1039",
-      "hospitalId": "H3",
-      "hospitalName": "Kokilaben Dhirubhai Ambani Hospital",
-      "patientCaseId": "PT-71042",
-      "bloodGroup": "A+",
-      "unitsRequired": 3,
-      "unitsFulfilled": 3,
-      "urgency": "Normal",
-      "priorityScore": 68,
-      "requiredByMinutes": 180,
-      "createdAt": "2026-09-23T01:18:21.896Z",
-      "requiredBy": "2026-09-23T06:38:21.896Z",
-      "location": "Andheri West, Mumbai",
-      "latitude": 19.1312,
-      "longitude": 72.8252,
-      "status": "FULFILLED",
-      "notes": "Orthopedic joint replacement surgery requirement.",
-      "compatibleDonorsFound": 14,
-      "nearbyBloodBanks": 4,
-      "availableUnitsNearby": 22,
-      "nearestDistanceKm": 2.1
+      "matchedDonorsList": [],
+      "duplicateFlag": false,
+      "createdAt": "2026-09-23T03:13:21.896Z"
     },
     {
       "id": "REQ-2026-1035",
+      "patientCaseId": "PT-66321",
       "hospitalId": "H8",
       "hospitalName": "Sion Hospital (LTMGH)",
-      "patientCaseId": "PT-66321",
+      "area": null,
+      "latitude": 19.0366,
+      "longitude": 72.8601,
       "bloodGroup": "AB-",
       "unitsRequired": 2,
       "unitsFulfilled": 1,
       "urgency": "High",
-      "priorityScore": 84,
-      "requiredByMinutes": 90,
-      "createdAt": "2026-09-23T02:23:21.896Z",
-      "requiredBy": "2026-09-23T05:08:21.896Z",
-      "location": "Sion, Mumbai",
-      "latitude": 19.0366,
-      "longitude": 72.8601,
       "status": "PARTIALLY_FULFILLED",
+      "requiredByMinutes": 90,
+      "priorityScore": 84,
       "notes": "Industrial machinery crush injury. 1 unit dispatched from Rotary Central.",
-      "compatibleDonorsFound": 4,
-      "nearbyBloodBanks": 3,
-      "availableUnitsNearby": 3,
-      "nearestDistanceKm": 1.5
+      "matchedDonorsList": [],
+      "duplicateFlag": false,
+      "createdAt": "2026-09-23T02:23:21.896Z"
+    },
+    {
+      "id": "REQ-2026-1039",
+      "patientCaseId": "PT-71042",
+      "hospitalId": "H3",
+      "hospitalName": "Kokilaben Dhirubhai Ambani Hospital",
+      "area": null,
+      "latitude": 19.1312,
+      "longitude": 72.8252,
+      "bloodGroup": "A+",
+      "unitsRequired": 3,
+      "unitsFulfilled": 3,
+      "urgency": "Normal",
+      "status": "FULFILLED",
+      "requiredByMinutes": 180,
+      "priorityScore": 68,
+      "notes": "Orthopedic joint replacement surgery requirement.",
+      "matchedDonorsList": [],
+      "duplicateFlag": false,
+      "createdAt": "2026-09-23T01:18:21.896Z"
     },
     {
       "id": "REQ-2026-1031",
+      "patientCaseId": "PT-52914",
       "hospitalId": "H4",
       "hospitalName": "Tata Memorial Centre",
-      "patientCaseId": "PT-52914",
+      "area": null,
+      "latitude": 19.0039,
+      "longitude": 72.8436,
       "bloodGroup": "O+",
       "unitsRequired": 5,
       "unitsFulfilled": 5,
       "urgency": "High",
-      "priorityScore": 78,
-      "requiredByMinutes": 120,
-      "createdAt": "2026-09-23T00:08:21.896Z",
-      "requiredBy": "2026-09-23T03:08:21.896Z",
-      "location": "Parel, Mumbai",
-      "latitude": 19.0039,
-      "longitude": 72.8436,
       "status": "FULFILLED",
+      "requiredByMinutes": 120,
+      "priorityScore": 78,
       "notes": "Pediatric leukemia transfusion support.",
-      "compatibleDonorsFound": 18,
-      "nearbyBloodBanks": 3,
-      "availableUnitsNearby": 35,
-      "nearestDistanceKm": 1.2
+      "matchedDonorsList": [],
+      "duplicateFlag": false,
+      "createdAt": "2026-09-23T00:08:21.896Z"
     }
   ],
   "notifications": [
     {
-      "id": "NOTIF-1790761440609",
+      "id": "NOTIF-1790824584120",
       "type": "info",
       "title": "Step 5: Smart Matching Identifies Targets",
       "message": "Step 5: 8 compatible donors and 3 blood banks matched!",
       "time": "Just now",
       "read": false,
       "requestId": "REQ-2026-1048",
-      "createdAt": "2026-09-30T09:44:00.609Z"
+      "createdAt": "2026-10-01T03:16:24.120Z"
     },
     {
-      "id": "NOTIF-1790761440571",
+      "id": "NOTIF-1790824584089",
       "type": "system",
       "title": "⚠️ Suspicious Duplicate Flagged",
-      "message": "REQ-2026-1764 flagged with 100% similarity to REQ-2026-1220.",
+      "message": "REQ-2026-1405 flagged with 100% similarity to REQ-2026-1808.",
       "time": "Just now",
       "read": false,
-      "requestId": "REQ-2026-1764",
-      "createdAt": "2026-09-30T09:44:00.571Z"
+      "requestId": "REQ-2026-1405",
+      "createdAt": "2026-10-01T03:16:24.089Z"
     },
     {
-      "id": "NOTIF-1790761440569",
+      "id": "NOTIF-1790824584087",
       "type": "critical",
       "title": "🚨 O- Blood Request: Lilavati Hospital & Research Centre",
       "message": "3 units required at Bandra West. AI priority score: 98%.",
       "time": "Just now",
       "read": false,
-      "requestId": "REQ-2026-1764",
-      "createdAt": "2026-09-30T09:44:00.569Z"
+      "requestId": "REQ-2026-1405",
+      "createdAt": "2026-10-01T03:16:24.087Z"
     },
     {
-      "id": "NOTIF-1790747318317",
+      "id": "NOTIF-1790823785811",
       "type": "info",
       "title": "Step 5: Smart Matching Identifies Targets",
       "message": "Step 5: 8 compatible donors and 3 blood banks matched!",
       "time": "Just now",
       "read": false,
       "requestId": "REQ-2026-1048",
-      "createdAt": "2026-09-30T05:48:38.317Z"
+      "createdAt": "2026-10-01T03:03:05.812Z"
     },
     {
-      "id": "NOTIF-1790747318289",
+      "id": "NOTIF-1790823785767",
       "type": "critical",
       "title": "🚨 O- Blood Request: Lilavati Hospital & Research Centre",
       "message": "3 units required at Bandra West. AI priority score: 98%.",
       "time": "Just now",
       "read": false,
-      "requestId": "REQ-2026-1220",
-      "createdAt": "2026-09-30T05:48:38.289Z"
+      "requestId": "REQ-2026-1808",
+      "createdAt": "2026-10-01T03:03:05.767Z"
     },
     {
       "id": "NOTIF-1",
@@ -1887,7 +1751,7 @@
       "time": "Just now",
       "read": false,
       "requestId": "REQ-2026-1048",
-      "createdAt": "2026-09-30T05:48:15.256Z"
+      "createdAt": "2026-10-01T02:57:23.277Z"
     },
     {
       "id": "NOTIF-2",
@@ -1897,7 +1761,7 @@
       "time": "2 mins ago",
       "read": false,
       "requestId": "REQ-2026-1048",
-      "createdAt": "2026-09-30T05:46:15.258Z"
+      "createdAt": "2026-10-01T02:55:23.279Z"
     },
     {
       "id": "NOTIF-3",
@@ -1907,7 +1771,7 @@
       "time": "14 mins ago",
       "read": true,
       "requestId": null,
-      "createdAt": "2026-09-30T05:34:15.258Z"
+      "createdAt": "2026-10-01T02:43:23.279Z"
     },
     {
       "id": "NOTIF-4",
@@ -1917,7 +1781,7 @@
       "time": "25 mins ago",
       "read": true,
       "requestId": "REQ-2026-1042",
-      "createdAt": "2026-09-30T05:23:15.258Z"
+      "createdAt": "2026-10-01T02:32:23.279Z"
     }
   ],
   "aiInsights": {
@@ -3106,6 +2970,20 @@
     }
   ],
   "auditLog": [
+    {
+      "id": "AUDIT-1790824584092",
+      "actor": "Hospital:Lilavati Hospital & Research Centre",
+      "action": "CREATE_EMERGENCY_REQUEST",
+      "details": "Created REQ-2026-1405 for 3 units of O- (Critical)",
+      "timestamp": "2026-10-01T03:16:24.092Z"
+    },
+    {
+      "id": "AUDIT-1790823785771",
+      "actor": "Hospital:Lilavati Hospital & Research Centre",
+      "action": "CREATE_EMERGENCY_REQUEST",
+      "details": "Created REQ-2026-1808 for 3 units of O- (Critical)",
+      "timestamp": "2026-10-01T03:03:05.771Z"
+    },
     {
       "id": "AUDIT-1790761440573",
       "actor": "Hospital:Lilavati Hospital & Research Centre",
